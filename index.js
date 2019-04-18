@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const indexRoutes= require('./routes/index');
 const flash = require('connect-flash');
 const session = require('express-session');
+require('./config/passport')(app);
 //connect db
 mongoose.connect(process.env.MONGO_URL,{ useNewUrlParser: true });
 // parse application/x-www-form-urlencoded
@@ -20,6 +21,8 @@ app.use(session({
 
 }));
 app.use(flash());
+//setup passport
+
 
 //template engines
 
