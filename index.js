@@ -5,9 +5,11 @@ dotenv.config()
 const mongoose= require('mongoose');
 const bodyParser = require('body-parser');
 const indexRoutes= require('./routes/index');
+const postRoutes= require('./routes/post');
 const flash = require('connect-flash');
 const session = require('express-session');
 require('./config/passport')(app);
+
 //connect db
 mongoose.connect(process.env.MONGO_URL,{ useNewUrlParser: true });
 // parse application/x-www-form-urlencoded
@@ -17,11 +19,16 @@ app.use(bodyParser.json());
 app.use(session({
 	secret: process.env.SECRET,
 	resave: false,
-	saveUninitialized : false
+	saveUninitialized : false,
+	cookie:{
+		maxAge:1000*60*3
+	}
 
 }));
 app.use(flash());
 //setup passport
+//setup public folder
+app.use(express.static('public'));
 
 
 //template engines
@@ -35,6 +42,7 @@ app.use((req,res,next)=>{
 });
 
 app.use('/',indexRoutes);
+app.use('/post',postRoutes);
 const port=process.env.port;
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
