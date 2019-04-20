@@ -8,7 +8,7 @@ const indexRoutes= require('./routes/index');
 const postRoutes= require('./routes/post');
 const flash = require('connect-flash');
 const session = require('express-session');
-require('./config/passport')(app);
+
 
 //connect db
 mongoose.connect(process.env.MONGO_URL,{ useNewUrlParser: true });
@@ -27,6 +27,7 @@ app.use(session({
 }));
 app.use(flash());
 //setup passport
+require('./config/passport')(app);
 //setup public folder
 app.use(express.static('public'));
 
