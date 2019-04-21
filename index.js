@@ -37,6 +37,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 //custom middle ware
 app.use((req,res,next)=>{
+	res.locals.currentUser=req.user
 	res.locals.error = req.flash('error');
 	res.locals.success=req.flash('success');
 	next();

@@ -10,26 +10,45 @@
 
 </head>
 <body>
-	<div class="ui secondary  menu">
-  <a class="active item">
-    Home
-  </a>
-  <a class="item">
-    Messages
-  </a>
-  <a class="item">
-    Friends
-  </a>
-  <div class="right menu">
-    <div class="item">
-      <div class="ui icon input">
-        <input type="text" placeholder="Search...">
-        <i class="search link icon"></i>
+	<div class="ui menu">
+      <div class="ui container">
+        <div class="header item">
+          <i class="camera retro icon"></i>
+          <a href="/" style="color: black">
+            BLOG
+          </a>
+          
+        </div>
+
+        <div class="header item">
+          <i class="home icon"></i>
+          <a href="/" style="color: black">
+            Home
+          </a>
+        </div>
+        
+          <%if(!currentUser){%>
+          <div class="right menu" >
+             <a class="ui item" href="/login">
+              Login
+            </a>
+             <a class="ui item" href="/register">
+              Register
+            </a>
+          </div>
+          <%}else {%>
+          <div class="right menu" >
+            <a class="ui item" href="/post/new">
+              Create a new post
+            </a>
+             <span class="ui item" >
+              <%=currentUser.username%>
+            </span>
+            <a class="ui item" href="/logout">
+              Logout
+            </a>
+          <%}%>
       </div>
-    </div>
-    <a class="ui item">
-      Logout
-    </a>
   </div>
 </div>
   <% if (error && error.length > 0){%>

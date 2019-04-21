@@ -1,8 +1,13 @@
 const router = require('express').Router();
 const User = require('../models/user.model');
+const Post = require('../models/Post');
 const passport = require('passport');
-router.get('/',(req,res)=>{
-	res.render('index')
+
+//show the home page
+
+router.get('/', async(req,res)=>{
+	const posts= await Post.find().sort({created: -1}).exec()
+	res.render('index',{posts:posts});
 })
 router.get('/register',(req,res)=>{
 	res.render('register')
@@ -42,5 +47,11 @@ router.post('/login',
                                    failureRedirect: '/login',
                                    failureFlash: true })
 );
+router.get('/logout',(req,res)=>{
+	req.logout();
+	req.flash('success','Logged out!');
+	res.redirect('/');
+})
+
 
 module.exports=router;
