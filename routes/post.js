@@ -21,4 +21,13 @@ router.post('/new', isLoggedIn ,async (req,res)=>{
 		return res.render ('newpost',{error :'Something went wrong'});
 	}
 })
+router.get('/:id', async (req,res)=>{
+	try{
+		const post= await Post.findById(req.params.id);
+		return res.render('showpost',{post:post});
+
+	}catch(err){
+
+	}
+})
 module.exports=router;
