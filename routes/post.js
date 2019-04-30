@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { isLoggedIn } =require('../middleware');
+const { isLoggedIn , isOwnerPost } =require('../middleware');
 const Post = require('../models/Post');
 
 router.get('/new', isLoggedIn ,(req,res)=>{
@@ -27,7 +27,19 @@ router.get('/:id', async (req,res)=>{
 		return res.render('showpost',{post:post});
 
 	}catch(err){
+		return res.redirect('/');
 
 	}
 })
+router.get('/:id/edit', isOwnerPost,async (req,res)=>{
+	try{
+		const post= await Post.findById(req.params.id);
+		return res.render('editpost',{post:post});
+
+	}catch(err){
+		return res.redirect('/');
+
+	}
+})
+
 module.exports=router;

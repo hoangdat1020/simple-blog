@@ -6,7 +6,7 @@
 		<div class="ui divided items">
 			<% posts.forEach(function (post) {%>
 				<div class="item">
-					<div class="image">
+					<div class="ui small image">
 						<img src="<%= post.image %>"/>
 					</div>
 					<div class="content">
@@ -18,8 +18,9 @@
 							<p><%= post.body.substring(0, 100)%></p>
 						</div>
 						<div class="extra">
-							<a class="ui floated basic violet button" href="/post/<%= post._id %>">
+							<a class="ui right floated primary button" href="/post/<%= post._id %>">
 							Read more</a>
+
 						</div>
 					</div>
 				</div>
