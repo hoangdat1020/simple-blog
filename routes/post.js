@@ -41,5 +41,22 @@ router.get('/:id/edit', isOwnerPost,async (req,res)=>{
 
 	}
 })
+router.post('/:id/edit', isOwnerPost,async (req,res)=>{
+	const {tittle,image,body} = req.body;
+	try{
+		const post= await Post.findById(req.params.id);
+		post.tittle =tittle;
+		post.image=image;
+		post.body=body;
+		await post.save();
+		//return res.redirect('back');
+		return res.redirect(`/post/${req.params.id}`);
+
+	}catch(err){
+		return res.redirect('back');
+
+	}
+})
+
 
 module.exports=router;
