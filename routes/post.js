@@ -57,6 +57,19 @@ router.post('/:id/edit', isOwnerPost,async (req,res)=>{
 
 	}
 })
+router.post('/:id/delete', isOwnerPost,async (req,res)=>{
+	//const {tittle,image,body} = req.body;
+	try{
+		const post= await Post.findById(req.params.id);
+		await post.delete();
+		//return res.redirect('back');
+		return res.redirect('/');
+
+	}catch(err){
+		return res.redirect('back');
+
+	}
+})
 
 
 module.exports=router;
