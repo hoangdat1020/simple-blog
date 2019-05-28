@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { isLoggedIn , isOwnerPost } =require('../middleware');
 const Post = require('../models/Post');
+const comment= require('../models/Comment');
+
 
 router.get('/new', isLoggedIn ,(req,res)=>{
 	res.render('newpost');
@@ -23,10 +25,11 @@ router.post('/new', isLoggedIn ,async (req,res)=>{
 })
 router.get('/:id', async (req,res)=>{
 	try{
-		const post= await Post.findById(req.params.id);
+		const post= await Post.findById(req.params.id).populate("comments");//load comment data bang id
 		return res.render('showpost',{post:post});
 
 	}catch(err){
+		console.log(error);
 		return res.redirect('/');
 
 	}

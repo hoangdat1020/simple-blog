@@ -1,4 +1,4 @@
- const express = require('express');
+const express = require('express');
 const app = express();
 const dotenv= require('dotenv');
 dotenv.config()
@@ -8,6 +8,8 @@ const indexRoutes= require('./routes/index');
 const postRoutes= require('./routes/post');
 const flash = require('connect-flash');
 const session = require('express-session');
+const commentRoutes = require('./routes/comment');
+
 
 
 //connect db
@@ -45,6 +47,8 @@ app.use((req,res,next)=>{
 
 app.use('/',indexRoutes);
 app.use('/post',postRoutes);
+app.use('/post/:id/comments',commentRoutes);
+
 const port=process.env.port;
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
